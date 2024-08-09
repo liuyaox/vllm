@@ -233,7 +233,7 @@ class EngineArgs:
             'section for more information.\n'
             '* "bitsandbytes" will load the weights using bitsandbytes '
             'quantization.\n')
-        parser.add_argument(
+        parser.add_argument(            # YAO: 默认auto，用半精度：bf16模型用bf16，fp16或fp32模型用fp16
             '--dtype',
             type=str,
             default=EngineArgs.dtype,

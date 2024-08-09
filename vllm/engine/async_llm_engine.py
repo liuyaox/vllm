@@ -558,7 +558,7 @@ class AsyncLLMEngine:
                 if shortened_token_ids is not None:
                     shortened_token_ids = shortened_token_ids[:max_log_len]
 
-            logger.info(
+            logger.info(        # YAO: 打印输入的prompt和参数
                 "Received request %s: prompt: %r, "
                 "params: %s, prompt_token_ids: %s, "
                 "lora_request: %s.", request_id, shortened_prompt, params,
