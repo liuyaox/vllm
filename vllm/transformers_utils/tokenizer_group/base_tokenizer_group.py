@@ -1,12 +1,11 @@
-from abc import ABC, abstractmethod
-from typing import List, Optional, Union
+# SPDX-License-Identifier: Apache-2.0
 
-from transformers import PreTrainedTokenizer, PreTrainedTokenizerFast
+from abc import ABC, abstractmethod
+from typing import List, Optional
 
 from vllm.config import TokenizerPoolConfig
 from vllm.lora.request import LoRARequest
-
-AnyTokenizer = Union[PreTrainedTokenizer, PreTrainedTokenizerFast]
+from vllm.transformers_utils.tokenizer import AnyTokenizer
 
 
 class BaseTokenizerGroup(ABC):
@@ -24,9 +23,10 @@ class BaseTokenizerGroup(ABC):
         pass
 
     @abstractmethod
-    def get_max_input_len(self,
-                          lora_request: Optional[LoRARequest] = None
-                          ) -> Optional[int]:
+    def get_max_input_len(
+        self,
+        lora_request: Optional[LoRARequest] = None,
+    ) -> Optional[int]:
         """Get the maximum input length for the LoRA request."""
         pass
 
@@ -34,7 +34,8 @@ class BaseTokenizerGroup(ABC):
     def encode(self,
                prompt: str,
                request_id: Optional[str] = None,
-               lora_request: Optional[LoRARequest] = None) -> List[int]:
+               lora_request: Optional[LoRARequest] = None,
+               add_special_tokens: Optional[bool] = None) -> List[int]:
         """Encode a prompt using the tokenizer group."""
         pass
 
@@ -43,7 +44,8 @@ class BaseTokenizerGroup(ABC):
             self,
             prompt: str,
             request_id: Optional[str] = None,
-            lora_request: Optional[LoRARequest] = None) -> List[int]:
+            lora_request: Optional[LoRARequest] = None,
+            add_special_tokens: Optional[bool] = None) -> List[int]:
         """Encode a prompt using the tokenizer group."""
         pass
 
